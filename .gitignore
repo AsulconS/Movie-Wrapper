@@ -1,5 +1,5 @@
 .vscode/
+dataCompressed.gz
 data.tsv
-title.basics.tsv.gz
 main.exe
 main

@@ -5,10 +5,13 @@ INCLUDE = -Iinclude/
 OBJECTS = main.o
 
 C_OS		:=
+LIBS		:=
 ifeq ($(OS),Windows_NT)
 	C_OS += Windows
+	LIBS += -lcurl -lz
 else
 	C_OS += Linux
+	LIBS += -lcurl -lz
 endif
 
 all: os build trash
@@ -17,10 +20,10 @@ os:
 	@echo $(C_OS)
 
 build: $(OBJECTS)
-	$(CXX) $(OBJECTS) $(INCLUDE) -o main $(CXX_FLAGS)
+	$(CXX) $(CXX_FLAGS) $(OBJECTS) $(INCLUDE) $(LIBS) -o main
 
 main.o: main.cpp
-	$(CXX) $(INCLUDE) -c main.cpp $(CXX_FLAGS)
+	$(CXX) $(CXX_FLAGS) $(INCLUDE) -c main.cpp
 
 trash:
 	rm -rf *.o

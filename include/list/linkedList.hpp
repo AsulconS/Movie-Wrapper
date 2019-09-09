@@ -1,6 +1,8 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <initializer_list>
+
 #include "core/common.hpp"
 #include "core/iterator.hpp"
 #include "core/node.hpp"
