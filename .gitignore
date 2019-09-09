@@ -1,6 +1,5 @@
 .vscode/
 dataCompressed.gz
 data.tsv
-include/movie
 main.exe
 main
