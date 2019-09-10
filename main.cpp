@@ -10,13 +10,11 @@ int main()
 
     OrderedList<Movie> movies {};
 
-    uint32 count;
+    std::size_t count;
     std::cout << "How many movies do you want to load? ";
     std::cin >> count;
 
-    Downloader::load<std::string>(movies, Criteria::BY_PRIMARY_TITLE, true, count);
-    movies.println();
-    
+    Downloader::load<uint32>(movies, Criteria::BY_ID, true, count);
     std::cout << "OK" << std::endl;
 
     return 0;

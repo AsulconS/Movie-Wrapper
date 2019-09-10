@@ -169,10 +169,7 @@ void LinkedList<T>::clear()
 {
     LinkedList<T>::Iterator it;
     for(it = _begin; it != _end; ++it)
-    {
-        std::cout << "ID: " << (*it)->data.getID() << std::endl;
         delete (*it);
-    }
     head = nullptr;
     last = nullptr;
     _begin.current = nullptr;

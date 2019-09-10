@@ -25,7 +25,7 @@ public:
     static bool download(const std::string& url);
 
     template <typename T>
-    static bool load(OrderedList<Movie>& list, CriteriaOffset criteria, bool isCount = false, uint32 count = 0);
+    static bool load(OrderedList<Movie>& list, CriteriaOffset criteria, bool isCount = false, std::size_t count = 0);
 
 private:
     explicit Downloader() {}

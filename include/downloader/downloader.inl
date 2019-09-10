@@ -2,12 +2,8 @@ bool Downloader::download(const std::string& url)
 {
     if(fileExists("dataCompressed.gz"))
     {
-        std::cout << "The file already exists!\nDo you want to download it again? ";
-
-        bool selected {};
-        std::cin >> selected;
-
-        if(!selected) return true;
+        std::cout << "The file already exists!" << std::endl;
+        return true;
     }
 
     CURL* curl;
@@ -45,7 +41,7 @@ bool Downloader::download(const std::string& url)
 }
 
 template <typename T>
-bool Downloader::load(OrderedList<Movie>& movies, CriteriaOffset criteria, bool isCount, uint32 count)
+bool Downloader::load(OrderedList<Movie>& movies, CriteriaOffset criteria, bool isCount, std::size_t count)
 {
     if(isCount && !count) return true;
 
@@ -61,8 +57,8 @@ bool Downloader::load(OrderedList<Movie>& movies, CriteriaOffset criteria, bool 
     size = inFile.tellg();
     inFile.seekg(93, inFile.beg);
 
-    char* buffer = new char[128];
-    char* auxBuffer = new char[64];
+    char* buffer = new char[512];
+    char* auxBuffer = new char[256];
 
     MovieData* currentMovieData = new MovieData;
 
