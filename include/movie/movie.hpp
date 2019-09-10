@@ -77,8 +77,8 @@ public:
     inline void setCriteria(const CriteriaOffset _criteriaOffset)
     {
         criteriaOffset = _criteriaOffset;
-        criteriaEFn = criteriaE<T>;
-        criteriaIFn = criteriaI<T>;
+        criteriaEFn = &Movie::criteriaE<T>;
+        criteriaIFn = &Movie::criteriaI<T>;
     }
 
     inline void setData(MovieData* _data) { delete data; data = _data; }

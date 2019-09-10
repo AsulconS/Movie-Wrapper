@@ -36,7 +36,7 @@ public:
     inline const LinkedList<T>::Iterator& end() & { return this->_end; }
 
     void print() const;
-    inline size_t size() const { return this->_size; }
+    inline std::size_t size() const { return this->_size; }
     inline bool empty() const { return !this->_size; }
 
     T get(const LinkedList<T>::Iterator& pos) const;
@@ -55,7 +55,7 @@ public:
 protected:
     Node<T>* head;
     Node<T>* last;
-    size_t _size;
+    std::size_t _size;
 
     LinkedList<T>::Iterator _begin;
     LinkedList<T>::Iterator _end;
