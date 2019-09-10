@@ -37,9 +37,19 @@ void LinkedList<T>::print() const
 }
 
 template <typename T>
+void LinkedList<T>::println() const
+{
+    std::cout << "[ " << std::endl;
+    LinkedList<T>::Iterator it;
+    for(it = _begin; it != _end; ++it)
+        std::cout << (*it)->data << std::endl;
+    std::cout << ']' << std::endl;
+}
+
+template <typename T>
 T LinkedList<T>::get(const LinkedList<T>::Iterator& pos) const
 {
-    return (((*pos)->current) != nullptr) ? *((*pos)->current) : T {} ;
+    return (pos.current != nullptr) ? (pos.current)->data : T {} ;
 }
 
 template <typename T>
@@ -159,7 +169,10 @@ void LinkedList<T>::clear()
 {
     LinkedList<T>::Iterator it;
     for(it = _begin; it != _end; ++it)
+    {
+        std::cout << "ID: " << (*it)->data.getID() << std::endl;
         delete (*it);
+    }
     head = nullptr;
     last = nullptr;
     _begin.current = nullptr;

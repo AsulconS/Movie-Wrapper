@@ -19,14 +19,13 @@ struct MovieData
     uint16 startYear;
     uint16 endYear;
 
-    uint8 runtimeMinutes;
+    uint16 runtimeMinutes;
 
     std::vector<std::string> genders;
 };
 
 enum Criteria
 {
-    DEFAULT,
     BY_ID = offsetof(MovieData, id),
     BY_TYPE = offsetof(MovieData, type),
     BY_PRIMARY_TITLE = offsetof(MovieData, primaryTitle),
@@ -73,19 +72,31 @@ public:
     inline bool operator>=(const Movie& o) const { return  (this->*criteriaIFn)(*this, o) || (this->*criteriaEFn)(*this, o); }
     inline bool operator<=(const Movie& o) const { return !(this->*criteriaIFn)(*this, o) || (this->*criteriaEFn)(*this, o); }
 
+    inline uint32 getID() { return data->id; }
+
     template <typename T>
-    inline void setCriteria(const CriteriaOffset _criteriaOffset)
+    inline Movie& setCriteria(const CriteriaOffset _criteriaOffset)
     {
         criteriaOffset = _criteriaOffset;
         criteriaEFn = &Movie::criteriaE<T>;
         criteriaIFn = &Movie::criteriaI<T>;
+
+        return *this;
     }
 
     inline void setData(MovieData* _data) { delete data; data = _data; }
 
     Movie() { data = new MovieData; }
-    Movie(MovieData* _data) : data(_data) {}
     virtual ~Movie() { delete data; }
+
+    Movie(MovieData* _data) : data(_data) {}
+    
+    Movie(const Movie& o) : data(o.data), criteriaOffset(o.criteriaOffset), criteriaEFn(o.criteriaEFn), criteriaIFn(o.criteriaIFn) {}
+    Movie(Movie&& o) : criteriaOffset(o.criteriaOffset), criteriaEFn(o.criteriaEFn), criteriaIFn(o.criteriaIFn)
+    {
+        this->data = o.data;
+        o.data = nullptr;
+    }
 };
 
 #endif // MOVIE_H

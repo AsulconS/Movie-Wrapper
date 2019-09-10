@@ -36,6 +36,7 @@ public:
     inline const LinkedList<T>::Iterator& end() & { return this->_end; }
 
     void print() const;
+    void println() const;
     inline std::size_t size() const { return this->_size; }
     inline bool empty() const { return !this->_size; }
 

@@ -28,6 +28,11 @@ void OrderedList<T>::insert(TArg&& v0)
         push_front(std::forward<TArg>(v0));
         return;
     }
+    if(last->data <= v0)
+    {
+        push_back(std::forward<TArg>(v0));
+        return;
+    }
 
     Node<T>* node = new Node<T>(std::forward<TArg>(v0));
     typename OrderedList<T>::Iterator it = _begin;
@@ -42,6 +47,4 @@ void OrderedList<T>::insert(TArg&& v0)
         }
         ++it;
     }
-
-    push_back(std::forward<TArg>(v0));
 }
