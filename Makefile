@@ -1,29 +1,35 @@
 CXX = g++
 
-CXX_FLAGS = -std=c++11
-INCLUDE = -Iinclude/
+CXX_STANDARD        = -std=c++11
+CXX_STANDARD_FLAGS  = -Wall -Wextra
+CXX_EXTRA_FLAGS     = -Wshadow -Wnon-virtual-dtor -pedantic
+
+CXX_FLAGS = $(CXX_STANDARD) $(CXX_STANDARD_FLAGS) $(CXX_EXTRA_FLAGS)
+
+STATIC_CXX = -static-libgcc -static-libstdc++
+LINK_FLAGS = -Wl,-Bstatic -lstdc++ -lpthread
+
+INCLUDE_PATH = -Iinclude/
 OBJECTS = main.o
 
-C_OS		:=
-LIBS		:=
 ifeq ($(OS),Windows_NT)
-	C_OS += Windows
-	LIBS += -lcurl -lz
+    C_OS += Windows
+    LIBS += -lcurl -lz
 else
-	C_OS += Linux
-	LIBS += -lcurl -lz
+    C_OS += Linux
+    LIBS += -lcurl -lz
 endif
 
 all: os build trash
 
 os:
-	@echo $(C_OS)
+	@printf "$(C_OS)\n"
 
 build: $(OBJECTS)
-	$(CXX) $(CXX_FLAGS) $(OBJECTS) $(INCLUDE) $(LIBS) -o main
+	$(CXX) $(CXX_FLAGS) $(OBJECTS) -o main $(INCLUDE_PATH) $(LIBS) $(STATIC_CXX) $(LINK_FLAGS)
 
 main.o: main.cpp
-	$(CXX) $(CXX_FLAGS) $(INCLUDE) -c main.cpp
+	$(CXX) $(CXX_FLAGS) $(INCLUDE_PATH) -c main.cpp
 
 trash:
 	rm -rf *.o
